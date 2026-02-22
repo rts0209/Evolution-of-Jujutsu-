@@ -41,8 +41,6 @@ public class CursedEnergyHud {
         int maxEnergy = cursedEnergyData.getMaxEnergy();
         float fillRatio = maxEnergy <= 0 ? 0.0F : Math.min(1.0F, energy / (float) maxEnergy);
 
-        float fillRatio = maxEnergy <= 0 ? 0.0F : Math.min(1.0F, energy / (float) maxEnergy);
-
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
