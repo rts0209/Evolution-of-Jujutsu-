@@ -1,10 +1,13 @@
 package com.rts0209.eoj.cursedenergy;
 
 import com.rts0209.eoj.EvolutionOfJujutsu;
+import com.rts0209.eoj.network.CursedEnergySyncPayload;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 
 @EventBusSubscriber(modid = EvolutionOfJujutsu.MOD_ID)
@@ -30,6 +33,7 @@ public class CursedEnergyEvents {
         int regenInterval = getRegenIntervalTicksForLevel(progressData.getLevel());
         if (player.tickCount % regenInterval == 0) {
             cursedEnergyData.addEnergy(getRegenAmountForLevel(progressData.getLevel()));
+            syncToClient(player, cursedEnergyData);
         }
     }
 
@@ -51,6 +55,27 @@ public class CursedEnergyEvents {
         CursedEnergyData cloneEnergy = clone.getData(ModAttachments.CURSED_ENERGY);
         cloneEnergy.setMaxEnergy(originalEnergy.getMaxEnergy());
         cloneEnergy.setEnergy(originalEnergy.getEnergy());
+
+        syncToClient(clone, cloneEnergy);
+    }
+
+    public static void syncToClient(Player player, CursedEnergyData cursedEnergyData) {
+        if (!(player instanceof ServerPlayer serverPlayer)) {
+            return;
+        }
+
+        PacketDistributor.sendToPlayer(serverPlayer, new CursedEnergySyncPayload(
+                cursedEnergyData.getEnergy(),
+                cursedEnergyData.getMaxEnergy()
+        ));
+    }
+
+
+    @SubscribeEvent
+    public static void onPlayerLogin(net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent event) {
+        Player player = event.getEntity();
+        CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
+        syncToClient(player, cursedEnergyData);
     }
 
     public static int getMaxEnergyForLevel(int level) {

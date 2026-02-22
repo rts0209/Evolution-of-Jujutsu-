@@ -87,6 +87,8 @@ public class ModCommands {
         progressData.setLevel(level);
         cursedEnergyData.setMaxEnergy(CursedEnergyEvents.getMaxEnergyForLevel(level));
 
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
+
         context.getSource().sendSuccess(() -> Component.literal("EOJ Level set to " + progressData.getLevel()), true);
         return progressData.getLevel();
     }
@@ -98,6 +100,8 @@ public class ModCommands {
 
         progressData.addLevels(amount);
         cursedEnergyData.setMaxEnergy(CursedEnergyEvents.getMaxEnergyForLevel(progressData.getLevel()));
+
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
 
         context.getSource().sendSuccess(() -> Component.literal("EOJ Level is now " + progressData.getLevel()), true);
         return progressData.getLevel();
@@ -119,6 +123,8 @@ public class ModCommands {
         progressData.addExperience(amount);
         cursedEnergyData.setMaxEnergy(CursedEnergyEvents.getMaxEnergyForLevel(progressData.getLevel()));
 
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
+
         context.getSource().sendSuccess(() -> Component.literal("EOJ XP is now " + progressData.getExperience() + ", level " + progressData.getLevel()), true);
         return progressData.getExperience();
     }
@@ -135,6 +141,7 @@ public class ModCommands {
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
         cursedEnergyData.setEnergy(value);
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
 
         context.getSource().sendSuccess(() -> Component.literal("Cursed Energy set to " + cursedEnergyData.getEnergy()), true);
         return cursedEnergyData.getEnergy();
@@ -145,6 +152,7 @@ public class ModCommands {
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
         cursedEnergyData.addEnergy(value);
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
 
         context.getSource().sendSuccess(() -> Component.literal("Cursed Energy is now " + cursedEnergyData.getEnergy()), true);
         return cursedEnergyData.getEnergy();
@@ -155,6 +163,7 @@ public class ModCommands {
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
         cursedEnergyData.removeEnergy(value);
+        CursedEnergyEvents.syncToClient(player, cursedEnergyData);
 
         context.getSource().sendSuccess(() -> Component.literal("Cursed Energy is now " + cursedEnergyData.getEnergy()), true);
         return cursedEnergyData.getEnergy();
