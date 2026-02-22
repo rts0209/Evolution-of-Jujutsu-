@@ -2,6 +2,7 @@ package com.rts0209.eoj.cursedenergy;
 
 import com.rts0209.eoj.EvolutionOfJujutsu;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.Font;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
@@ -37,6 +38,8 @@ public class CursedEnergyHud {
         int width = 81;
         int height = 9;
 
+        float fillRatio = maxEnergy <= 0 ? 0.0F : Math.min(1.0F, energy / (float) maxEnergy);
+
         int screenWidth = mc.getWindow().getGuiScaledWidth();
         int screenHeight = mc.getWindow().getGuiScaledHeight();
 
@@ -45,7 +48,15 @@ public class CursedEnergyHud {
 
         gui.blit(BAR, x, y, 0, 0, width, height);
 
-        int filled = (int) ((energy / (float) maxEnergy) * width);
-        gui.blit(BAR, x, y, 0, 9, filled, height);
+        int filled = Math.round(fillRatio * width);
+        if (filled > 0) {
+            gui.blit(BAR, x, y, 0, 9, filled, height);
+        }
+
+        Font font = mc.font;
+        String energyText = energy + " / " + maxEnergy;
+        int textX = x + width + 6;
+        int textY = y + (height - font.lineHeight) / 2;
+        gui.drawString(font, energyText, textX, textY, 0xC7D7FF, true);
     }
 }
