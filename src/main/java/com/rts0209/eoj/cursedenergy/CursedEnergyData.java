@@ -19,18 +19,23 @@ public class CursedEnergyData {
     }
 
     public void setEnergy(int energy) {
-        this.energy = Math.min(energy, maxEnergy);
+        this.energy = Math.max(0, Math.min(energy, maxEnergy));
     }
 
     public void addEnergy(int amount) {
-        this.energy = Math.min(this.energy + amount, maxEnergy);
+        setEnergy(this.energy + amount);
     }
 
     public void removeEnergy(int amount) {
-        this.energy = Math.max(this.energy - amount, 0);
+        setEnergy(this.energy - amount);
     }
 
     public void setMaxEnergy(int maxEnergy) {
-        this.maxEnergy = maxEnergy;
+        this.maxEnergy = Math.max(1, maxEnergy);
+        this.energy = Math.min(this.energy, this.maxEnergy);
+    }
+
+    public boolean isFull() {
+        return this.energy >= this.maxEnergy;
     }
 }
