@@ -5,11 +5,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.RenderGuiEvent;
 
-@EventBusSubscriber(modid = EvolutionOfJujutsu.MOD_ID)
+@EventBusSubscriber(modid = EvolutionOfJujutsu.MOD_ID, value = Dist.CLIENT)
 public class CursedEnergyHud {
 
     private static final ResourceLocation BAR =
@@ -26,11 +27,12 @@ public class CursedEnergyHud {
 
         if (player == null) return;
 
+        CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
+
         GuiGraphics gui = event.getGuiGraphics();
 
-        // Temporary test values
-        int energy = 50;
-        int maxEnergy = 100;
+        int energy = cursedEnergyData.getEnergy();
+        int maxEnergy = cursedEnergyData.getMaxEnergy();
 
         int width = 81;
         int height = 9;
@@ -43,8 +45,7 @@ public class CursedEnergyHud {
 
         gui.blit(BAR, x, y, 0, 0, width, height);
 
-        int filled = (int)((energy / (float) maxEnergy) * width);
-
+        int filled = (int) ((energy / (float) maxEnergy) * width);
         gui.blit(BAR, x, y, 0, 9, filled, height);
     }
 }
