@@ -1,6 +1,7 @@
 package com.rts0209.eoj.command;
 
 import com.mojang.brigadier.arguments.IntegerArgumentType;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.context.CommandContext;
 import com.rts0209.eoj.EvolutionOfJujutsu;
 import com.rts0209.eoj.cursedenergy.CursedEnergyData;
@@ -71,14 +72,14 @@ public class ModCommands {
         );
     }
 
-    private static int getLevel(CommandContext<CommandSourceStack> context) {
+    private static int getLevel(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         SorcererProgressData progressData = player.getData(ModAttachments.SORCERER_PROGRESS);
         context.getSource().sendSuccess(() -> Component.literal("EOJ Level: " + progressData.getLevel()), false);
         return progressData.getLevel();
     }
 
-    private static int setLevel(CommandContext<CommandSourceStack> context, int level) {
+    private static int setLevel(CommandContext<CommandSourceStack> context, int level) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         SorcererProgressData progressData = player.getData(ModAttachments.SORCERER_PROGRESS);
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
@@ -90,7 +91,7 @@ public class ModCommands {
         return progressData.getLevel();
     }
 
-    private static int addLevel(CommandContext<CommandSourceStack> context, int amount) {
+    private static int addLevel(CommandContext<CommandSourceStack> context, int amount) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         SorcererProgressData progressData = player.getData(ModAttachments.SORCERER_PROGRESS);
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
@@ -102,7 +103,7 @@ public class ModCommands {
         return progressData.getLevel();
     }
 
-    private static int getXp(CommandContext<CommandSourceStack> context) {
+    private static int getXp(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         SorcererProgressData progressData = player.getData(ModAttachments.SORCERER_PROGRESS);
         int xpForNextLevel = progressData.getExperienceForNextLevel();
@@ -110,7 +111,7 @@ public class ModCommands {
         return progressData.getExperience();
     }
 
-    private static int addXp(CommandContext<CommandSourceStack> context, int amount) {
+    private static int addXp(CommandContext<CommandSourceStack> context, int amount) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         SorcererProgressData progressData = player.getData(ModAttachments.SORCERER_PROGRESS);
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
@@ -122,14 +123,14 @@ public class ModCommands {
         return progressData.getExperience();
     }
 
-    private static int getCursedEnergy(CommandContext<CommandSourceStack> context) {
+    private static int getCursedEnergy(CommandContext<CommandSourceStack> context) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
         context.getSource().sendSuccess(() -> Component.literal("Cursed Energy: " + cursedEnergyData.getEnergy() + "/" + cursedEnergyData.getMaxEnergy()), false);
         return cursedEnergyData.getEnergy();
     }
 
-    private static int setCursedEnergy(CommandContext<CommandSourceStack> context, int value) {
+    private static int setCursedEnergy(CommandContext<CommandSourceStack> context, int value) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
@@ -139,7 +140,7 @@ public class ModCommands {
         return cursedEnergyData.getEnergy();
     }
 
-    private static int addCursedEnergy(CommandContext<CommandSourceStack> context, int value) {
+    private static int addCursedEnergy(CommandContext<CommandSourceStack> context, int value) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
@@ -149,7 +150,7 @@ public class ModCommands {
         return cursedEnergyData.getEnergy();
     }
 
-    private static int removeCursedEnergy(CommandContext<CommandSourceStack> context, int value) {
+    private static int removeCursedEnergy(CommandContext<CommandSourceStack> context, int value) throws CommandSyntaxException {
         ServerPlayer player = context.getSource().getPlayerOrException();
         CursedEnergyData cursedEnergyData = player.getData(ModAttachments.CURSED_ENERGY);
 
