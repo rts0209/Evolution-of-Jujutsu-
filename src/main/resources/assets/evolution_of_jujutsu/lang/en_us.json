@@ -2,12 +2,22 @@
   "itemGroup.evolutionofjujutsu": "Example Mod Tab",
   "block.evolution_of_jujutsu.cursed_energy_block": "Cursed Energy Block",
   "item.evolution_of_jujutsu.cursed_energy": "Cursed Energy",
-
   "evolutionofjujutsu.configuration.title": "Evolution Of Jujutsu Configs",
   "evolutionofjujutsu.configuration.section.evolutionofjujutsu.common.toml": "Evolution Of Jujutsu Configs",
   "evolutionofjujutsu.configuration.section.evolutionofjujutsu.common.toml.title": "Evolution Of Jujutsu Configs",
   "evolutionofjujutsu.configuration.items": "Item List",
   "evolutionofjujutsu.configuration.logDirtBlock": "Log Dirt Block",
   "evolutionofjujutsu.configuration.magicNumberIntroduction": "Magic Number Text",
-  "evolutionofjujutsu.configuration.magicNumber": "Magic Number"
+  "evolutionofjujutsu.configuration.magicNumber": "Magic Number",
+  "key.categories.evolution_of_jujutsu": "Evolution of Jujutsu",
+  "key.evolution_of_jujutsu.menu": "Menu Button",
+  "screen.evolution_of_jujutsu.menu.title": "Sorcerer Menu",
+  "screen.evolution_of_jujutsu.menu.player_viewer": "Player\nViewer",
+  "screen.evolution_of_jujutsu.menu.grade": "Player Grade",
+  "screen.evolution_of_jujutsu.menu.technique_name_label": "Innate Technique",
+  "screen.evolution_of_jujutsu.menu.technique_name_value": "Technique Name",
+  "screen.evolution_of_jujutsu.menu.technique_icon": "Technique\nIcon",
+  "screen.evolution_of_jujutsu.menu.technique_level_label": "Technique Level",
+  "screen.evolution_of_jujutsu.menu.technique_level_value": "Level %s",
+  "screen.evolution_of_jujutsu.menu.technique_description": "Short Technique Description"
 }
